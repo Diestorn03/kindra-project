@@ -67,3 +67,5 @@ Conectado (proyecto `kindra-project`, región São Paulo). Las claves están en 
    - `NEXT_PUBLIC_WHATSAPP` → opcional, número con código de país
 4. **Deploy**. Vercel entrega una dirección `https://kindra-project-….vercel.app`.
 5. Desde ese momento la conexión con GitHub queda hecha: **cada `git push` a `main` publica solo** en uno o dos minutos, y cada rama o pull request genera una dirección de prueba aparte. No hay que tocar Vercel de nuevo.
+
+hola
