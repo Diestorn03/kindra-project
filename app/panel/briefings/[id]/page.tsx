@@ -2,10 +2,9 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Copiar from '@/components/Copiar';
 import CopiarBrief from '@/components/CopiarBrief';
+import EstadoBotones from '@/components/EstadoBotones';
 import { db } from '@/lib/db';
-import { ESTADOS, REDES, urlRed, type Estado } from '@/lib/tipos';
-
-const COLOR: Record<Estado, string> = { borrador: 'bg-fondo text-gris', nuevo: 'bg-acento text-blanco', en_progreso: 'bg-acento-suave text-acento-oscuro', cerrado: 'bg-tinta text-blanco' };
+import { REDES, urlRed } from '@/lib/tipos';
 
 export default async function Ficha({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ nuevo?: string }> }) {
   const [{ id }, { nuevo }] = await Promise.all([params, searchParams]);
@@ -22,12 +21,7 @@ export default async function Ficha({ params, searchParams }: { params: Promise<
         <Link href="/panel" className="text-[13px] text-gris hover:text-acento">← Briefings</Link>
         <div className="mt-2 flex flex-wrap items-center justify-between gap-4">
           <h1 className="titulo text-4xl">{d.empresa || 'Sin nombre todavía'}</h1>
-          <form method="post" action="/api/panel/estado" className="flex flex-wrap gap-1.5">
-            <input type="hidden" name="id" value={brief.id} />
-            {(Object.keys(ESTADOS) as Estado[]).map((e) => (
-              <button key={e} name="estado" value={e} type="submit" className={`rounded-full border px-3.5 py-1.5 text-[12px] font-semibold uppercase tracking-wide transition ${brief.estado === e ? COLOR[e] + ' border-transparent' : 'border-linea bg-blanco text-gris hover:border-acento'}`}>{ESTADOS[e]}</button>
-            ))}
-          </form>
+          <EstadoBotones id={brief.id} inicial={brief.estado} />
         </div>
       </div>
 

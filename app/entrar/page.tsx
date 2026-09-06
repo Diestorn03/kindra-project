@@ -1,4 +1,5 @@
 import Logo from '@/components/Logo';
+import CampoContrasena from '@/components/CampoContrasena';
 
 export const metadata = { title: 'Entrar' };
 
@@ -12,7 +13,7 @@ export default async function Entrar({ searchParams }: { searchParams: Promise<{
         <p className="mb-5 text-[14px] text-gris">Solo para el equipo de Kindra Project.</p>
         {error && <p className="mb-4 rounded-lg bg-acento-suave px-3 py-2 text-[13px]" role="alert">Contraseña incorrecta.</p>}
         <label className="mb-1.5 block text-[13px] font-semibold" htmlFor="password">Contraseña</label>
-        <input id="password" name="password" type="password" className="campo mb-4" autoFocus required />
+        <CampoContrasena />
         <button className="btn w-full" type="submit">Entrar</button>
       </form>
     </main>

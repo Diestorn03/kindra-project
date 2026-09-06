@@ -21,10 +21,10 @@ export default async function Inicio() {
       </header>
 
       <section className="mx-auto max-w-6xl px-6 pb-20 pt-16 sm:pt-24">
-        <Aparecer inmediato><p className="etiqueta mb-5">Agencia de diseño web y redes sociales</p></Aparecer>
-        <Aparecer inmediato retraso={0.08}><h1 className="titulo max-w-4xl text-5xl sm:text-7xl">Marcas que se ven tan bien como trabajan.</h1></Aparecer>
-        <Aparecer inmediato retraso={0.16}><p className="mt-6 max-w-xl text-[18px] leading-relaxed text-gris">Diseñamos tu página y llevamos tus redes con un solo equipo: la misma voz, la misma calidad, sin intermediarios.</p></Aparecer>
-        <Aparecer inmediato retraso={0.24} className="mt-8 flex flex-wrap gap-3">
+        <Aparecer><p className="etiqueta mb-5">Agencia de diseño web y redes sociales</p></Aparecer>
+        <Aparecer retraso={0.08}><h1 className="titulo max-w-4xl text-5xl sm:text-7xl">Marcas que se ven tan bien como trabajan.</h1></Aparecer>
+        <Aparecer retraso={0.16}><p className="mt-6 max-w-xl text-[18px] leading-relaxed text-gris">Diseñamos tu página y llevamos tus redes con un solo equipo: la misma voz, la misma calidad, sin intermediarios.</p></Aparecer>
+        <Aparecer retraso={0.24} className="mt-8 flex flex-wrap gap-3">
           <Link href="/portafolio" className="btn">Ver portafolio</Link>
           {whatsapp && <a href={`https://wa.me/${whatsapp}`} className="btn-suave">Hablemos por WhatsApp</a>}
         </Aparecer>

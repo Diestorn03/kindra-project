@@ -3,7 +3,10 @@ node_modules/
 out/
 data/
 public/uploads/
-.env.local
-.env*.local
+.env*
+!.env.example
 *.log
 next-env.d.ts
+# Capturas y script de auditoría móvil (solo para pruebas locales)
+capturas-movil/
+tsconfig.tsbuildinfo

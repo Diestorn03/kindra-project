@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.58.0",
-    "motion": "^12.23.0",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest"

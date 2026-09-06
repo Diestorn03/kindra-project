@@ -39,6 +39,10 @@ export const dbSupabase: DB = {
     const { error } = await sb().from('briefings').update({ estado: b.estado, datos: b.datos, actualizado_en: new Date().toISOString(), enviado_en: b.enviadoEn ?? null }).eq('id', b.id);
     if (error) throw error;
   },
+  async cambiarEstado(id, estado) {
+    const { error } = await sb().from('briefings').update({ estado, actualizado_en: new Date().toISOString() }).eq('id', id);
+    if (error) throw error;
+  },
   async listarProyectos(soloPublicados = false) {
     let q = sb().from('proyectos').select('*').order('creado_en', { ascending: false });
     if (soloPublicados) q = q.eq('publicado', true);

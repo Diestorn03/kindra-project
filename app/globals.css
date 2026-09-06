@@ -53,3 +53,25 @@ body { background: var(--color-fondo); color: var(--color-tinta); font-family: v
 .entrar:nth-child(2) { animation-delay: .06s; } .entrar:nth-child(3) { animation-delay: .12s; } .entrar:nth-child(4) { animation-delay: .18s; }
 .entrar:nth-child(5) { animation-delay: .24s; } .entrar:nth-child(6) { animation-delay: .3s; }
 @media (prefers-reduced-motion: reduce) { .entrar { animation: none; } }
+
+/* Aparición genérica (componente Aparecer): mismo mecanismo, con retraso y desplazamiento configurables */
+@keyframes aparecer-css { from { opacity: 0; transform: translateY(var(--y, 18px)); } to { opacity: 1; transform: none; } }
+.aparecer { animation: aparecer-css .5s cubic-bezier(.2,.7,.2,1) both; animation-delay: var(--retraso, 0s); }
+
+/* Asistente de briefing: todo en CSS, sin librería de animación por JavaScript */
+@keyframes paso-der { from { opacity: 0; transform: translateX(32px); } to { opacity: 1; transform: none; } }
+@keyframes paso-izq { from { opacity: 0; transform: translateX(-32px); } to { opacity: 1; transform: none; } }
+.paso-der { animation: paso-der .32s cubic-bezier(.2,.7,.2,1) both; }
+.paso-izq { animation: paso-izq .32s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes pop-in { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: scale(1); } }
+.pop-in { animation: pop-in .35s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes check-pop { from { transform: scale(0); } to { transform: scale(1); } }
+.check-pop { animation: check-pop .5s cubic-bezier(.34,1.56,.64,1) .1s both; }
+.chip:active { transform: scale(.96); }
+.progreso-barra { transition: width .5s cubic-bezier(.2,.7,.2,1); }
+
+/* Esqueleto de carga: brillo que recorre los bloques mientras llegan los datos */
+@keyframes brillo { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+.hueso { border-radius: 14px; background: linear-gradient(90deg, #F1E6DF 25%, #FAF5F1 50%, #F1E6DF 75%); background-size: 200% 100%; animation: brillo 1.4s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) { .aparecer, .paso-der, .paso-izq, .pop-in, .check-pop, .hueso { animation: none; } }

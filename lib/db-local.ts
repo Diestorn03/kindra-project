@@ -44,6 +44,14 @@ export const dbLocal: DB = {
     if (i >= 0) lista[i] = brief; else lista.push(brief);
     await escribir('briefings.json', lista);
   },
+  async cambiarEstado(id, estado) {
+    const lista = await leer<Brief>('briefings.json');
+    const b = lista.find((x) => x.id === id);
+    if (!b) return;
+    b.estado = estado;
+    b.actualizadoEn = new Date().toISOString();
+    await escribir('briefings.json', lista);
+  },
   async listarProyectos(soloPublicados = false) {
     const lista = (await leer<Proyecto>('proyectos.json')).sort((a, b) => b.creadoEn.localeCompare(a.creadoEn));
     return soloPublicados ? lista.filter((p) => p.publicado) : lista;

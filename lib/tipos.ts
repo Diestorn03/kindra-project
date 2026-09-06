@@ -59,6 +59,10 @@ export const DATOS_VACIOS: BriefDatos = {
 export const ESTADOS: Record<Estado, string> = {
   borrador: 'Borrador', nuevo: 'Nuevo', en_progreso: 'En progreso', cerrado: 'Cerrado',
 };
+/** Clases de color de la etiqueta de cada estado (lista del panel y ficha). */
+export const COLOR_ESTADO: Record<Estado, string> = {
+  borrador: 'bg-fondo text-gris', nuevo: 'bg-acento text-blanco', en_progreso: 'bg-acento-suave text-acento-oscuro', cerrado: 'bg-tinta text-blanco',
+};
 
 export const SECTORES = ['Restaurante o cafetería', 'Tienda o comercio', 'Salud y bienestar', 'Belleza y moda', 'Servicios profesionales', 'Educación', 'Industria y técnico', 'Inmobiliaria', 'Turismo', 'Otro'];
 export const TIPOS_SITIO = ['Landing page (una sola página)', 'Sitio corporativo (varias páginas)', 'Tienda en línea', 'Portafolio o catálogo', 'Otro'];
