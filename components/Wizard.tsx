@@ -103,12 +103,6 @@ export default function Wizard({ token, inicial, yaEnviado }: { token: string; i
   }
 
   const p = PASOS[paso];
-  const Campo = ({ etiqueta, opcional, children }: { etiqueta: string; opcional?: boolean; children: React.ReactNode }) => (
-    <div><label className="mb-2 block text-[14px] font-semibold">{etiqueta}{opcional && <span className="ml-1.5 text-[12px] font-normal text-gris">opcional</span>}</label>{children}</div>
-  );
-  const Chip = ({ activo, onClick, children }: { activo: boolean; onClick: () => void; children: React.ReactNode }) => (
-    <button type="button" onClick={onClick} className={`chip ${activo ? 'chip-activo' : ''}`}>{children}</button>
-  );
 
   return (
     <div className="mx-auto max-w-2xl pb-28">
@@ -271,4 +265,14 @@ export default function Wizard({ token, inicial, yaEnviado }: { token: string; i
 function Dato({ k, v }: { k: string; v: string }) {
   if (!v) return null;
   return <div><dt className="text-[12px] font-semibold uppercase tracking-wide text-gris">{k}</dt><dd className="mt-0.5">{v}</dd></div>;
+}
+/** Fuera del componente a propósito: definirlos adentro creaba una función nueva en cada
+ *  render, y React trataba cada tecla escrita como si el campo fuera un componente distinto,
+ *  destruyendo y reconstruyendo todos los campos del paso — por eso el foco saltaba de vuelta
+ *  al campo con autoFocus (empresa) apenas se escribía en cualquier otro. */
+function Campo({ etiqueta, opcional, children }: { etiqueta: string; opcional?: boolean; children: React.ReactNode }) {
+  return <div><label className="mb-2 block text-[14px] font-semibold">{etiqueta}{opcional && <span className="ml-1.5 text-[12px] font-normal text-gris">opcional</span>}</label>{children}</div>;
+}
+function Chip({ activo, onClick, children }: { activo: boolean; onClick: () => void; children: React.ReactNode }) {
+  return <button type="button" onClick={onClick} className={`chip ${activo ? 'chip-activo' : ''}`}>{children}</button>;
 }

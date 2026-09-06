@@ -15,6 +15,11 @@
   --font-mono: var(--font-jet), Consolas, monospace;
 }
 
+/* La fila de pasos del asistente se desplaza horizontalmente a propósito (overflow-x-auto);
+   sin esto, ese desplazamiento interno "se filtra" y la página entera gana un ancho fantasma
+   de unos 12px en el teléfono (documentElement.scrollWidth > clientWidth), aunque no se note
+   a simple vista, salvo por un rebote raro al final del scroll. */
+html { overflow-x: hidden; }
 body { background: var(--color-fondo); color: var(--color-tinta); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
 ::selection { background: var(--color-acento-suave); }
 :focus-visible { outline: 2px solid var(--color-acento); outline-offset: 2px; border-radius: 6px; }
