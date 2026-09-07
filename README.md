@@ -68,4 +68,4 @@ Conectado (proyecto `kindra-project`, región São Paulo). Las claves están en 
 4. **Deploy**. Vercel entrega una dirección `https://kindra-project-….vercel.app`.
 5. Desde ese momento la conexión con GitHub queda hecha: **cada `git push` a `main` publica solo** en uno o dos minutos, y cada rama o pull request genera una dirección de prueba aparte. No hay que tocar Vercel de nuevo.
 
-hola
+Nota: Vercel bloquea un despliegue si el correo del commit no está verificado en la cuenta de GitHub conectada (pasó una vez). El correo de commit correcto para este repositorio es `diegoandrescardozo2006@gmail.com`.

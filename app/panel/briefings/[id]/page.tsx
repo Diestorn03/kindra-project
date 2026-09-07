@@ -4,7 +4,7 @@ import Copiar from '@/components/Copiar';
 import CopiarBrief from '@/components/CopiarBrief';
 import EstadoBotones from '@/components/EstadoBotones';
 import { db } from '@/lib/db';
-import { REDES, urlRed } from '@/lib/tipos';
+import { REDES, urlRed, formatoSecciones } from '@/lib/tipos';
 
 export default async function Ficha({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ nuevo?: string }> }) {
   const [{ id }, { nuevo }] = await Promise.all([params, searchParams]);
@@ -43,7 +43,7 @@ export default async function Ficha({ params, searchParams }: { params: Promise<
             <Dato k="Le gusta de su web" v={d.webGusta} /><Dato k="No le gusta" v={d.webNoGusta} />
           </Bloque>
           <Bloque titulo="Proyecto">
-            <Dato k="Tipo de sitio" v={d.tipoSitio} /><Dato k="Secciones" v={d.secciones.join(', ')} />
+            <Dato k="Tipo de sitio" v={d.tipoSitio} /><Dato k="Secciones" v={formatoSecciones(d)} />
             {d.referencias.some((r) => r.url) && <div className="sm:col-span-2"><dt className="text-[12px] font-semibold uppercase tracking-wide text-gris">Referencias</dt><dd className="mt-1.5 grid gap-1 text-[15px]">{d.referencias.filter((r) => r.url).map((r, i) => <span key={i}><a href={/^https?:/.test(r.url) ? r.url : `https://${r.url}`} target="_blank" rel="noopener" className="text-acento hover:underline">{r.url}</a>{r.nota && <span className="text-gris"> — {r.nota}</span>}</span>)}</dd></div>}
             <Dato k="Contenido disponible" v={d.contenido} /><Dato k="Tipografías" v={d.tipografias} />
           </Bloque>

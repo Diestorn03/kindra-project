@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { REDES, urlRed, type BriefDatos } from '@/lib/tipos';
+import { REDES, urlRed, formatoSecciones, type BriefDatos } from '@/lib/tipos';
 
 /** Arma el briefing como texto listo para pegar en Claude Code al empezar a construir el sitio. */
 export default function CopiarBrief({ d, logoAbsoluta }: { d: BriefDatos; logoAbsoluta: string }) {
@@ -14,7 +14,7 @@ export default function CopiarBrief({ d, logoAbsoluta }: { d: BriefDatos; logoAb
     linea('Logo', logoAbsoluta) + (d.colores.length ? `- **Colores:** ${d.colores.join(', ')}\n` : '') + linea('Tipografías', d.tipografias) +
     linea('Tipo de sitio', d.tipoSitio) +
     (d.referencias.some((r) => r.url) ? `- **Referencias:**\n${d.referencias.filter((r) => r.url).map((r) => `  - ${r.url}${r.nota ? ` — ${r.nota}` : ''}`).join('\n')}\n` : '') +
-    (d.secciones.length ? `- **Secciones:** ${d.secciones.join(', ')}\n` : '') + linea('Contenido disponible', d.contenido) +
+    (d.secciones.length ? `- **Secciones:** ${formatoSecciones(d)}\n` : '') + linea('Contenido disponible', d.contenido) +
     linea('Presupuesto', d.presupuesto) + linea('Fecha límite', d.fechaLimite) + linea('Notas', d.notas);
 
   async function copiar() {

@@ -19,6 +19,7 @@ export interface BriefDatos {
   tipoSitio: string;
   referencias: { url: string; nota: string }[];
   secciones: string[];
+  seccionesOtro: string;
   contenido: string;
   presupuesto: string;
   fechaLimite: string;
@@ -52,7 +53,7 @@ export const DATOS_VACIOS: BriefDatos = {
   empresa: '', contacto: '', cargo: '', telefono: '', correo: '', sector: '',
   tieneWeb: '', webUrl: '', webGusta: '', webNoGusta: '',
   redes: [], logoUrl: '', colores: [], tipografias: '',
-  tipoSitio: '', referencias: [], secciones: [], contenido: '',
+  tipoSitio: '', referencias: [], secciones: [], seccionesOtro: '', contenido: '',
   presupuesto: '', fechaLimite: '', notas: '', revisado: false,
 };
 
@@ -66,7 +67,7 @@ export const COLOR_ESTADO: Record<Estado, string> = {
 
 export const SECTORES = ['Restaurante o cafetería', 'Tienda o comercio', 'Salud y bienestar', 'Belleza y moda', 'Servicios profesionales', 'Educación', 'Industria y técnico', 'Inmobiliaria', 'Turismo', 'Otro'];
 export const TIPOS_SITIO = ['Landing page (una sola página)', 'Sitio corporativo (varias páginas)', 'Tienda en línea', 'Portafolio o catálogo', 'Otro'];
-export const SECCIONES = ['Inicio', 'Nosotros', 'Servicios', 'Productos', 'Portafolio o galería', 'Testimonios', 'Blog o noticias', 'Preguntas frecuentes', 'Contacto', 'Reservas o citas'];
+export const SECCIONES = ['Inicio', 'Nosotros', 'Servicios', 'Productos', 'Portafolio o galería', 'Testimonios', 'Blog o noticias', 'Preguntas frecuentes', 'Contacto', 'Reservas o citas', 'Otro'];
 export const PRESUPUESTOS = ['Menos de 300 $', '300 a 600 $', '600 a 1.200 $', 'Más de 1.200 $', 'Aún no lo sé'];
 
 export const REDES: Record<Red, { nombre: string; base: string }> = {
@@ -101,6 +102,13 @@ export function imagenProyecto(p: { portadaUrl: string; url: string }, ancho = 1
 }
 
 /** Campos mínimos para poder enviar un briefing. */
+/** "Secciones" para mostrar: si eligieron "Otro", muestra su explicación en vez del literal "Otro". */
+export function formatoSecciones(d: Pick<BriefDatos, 'secciones' | 'seccionesOtro'>): string {
+  const base = d.secciones.filter((s) => s !== 'Otro');
+  if (d.secciones.includes('Otro')) base.push(d.seccionesOtro ? `Otro: ${d.seccionesOtro}` : 'Otro');
+  return base.join(', ');
+}
+
 export function validarMinimos(d: BriefDatos): string[] {
   const errores: string[] = [];
   if (d.empresa.trim().length < 2) errores.push('Nombre de la empresa');

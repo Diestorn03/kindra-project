@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { extraerColores } from '@/lib/colores';
-import { type BriefDatos, type Red, REDES, SECTORES, TIPOS_SITIO, SECCIONES, PRESUPUESTOS, limpiarUsuario, urlRed, validarMinimos } from '@/lib/tipos';
+import { type BriefDatos, type Red, REDES, SECTORES, TIPOS_SITIO, SECCIONES, PRESUPUESTOS, limpiarUsuario, urlRed, validarMinimos, formatoSecciones } from '@/lib/tipos';
 
 const PASOS = [
   { nombre: 'Tu empresa', titulo: 'Empecemos por lo básico', ayuda: 'Solo necesitamos saber quién eres y cómo contactarte.' },
@@ -219,7 +219,12 @@ export default function Wizard({ token, inicial, yaEnviado }: { token: string; i
                 {d.referencias.length < 3 && <button type="button" className="btn-suave justify-self-start" onClick={() => set({ referencias: [...d.referencias, { url: '', nota: '' }] })}>＋ Agregar referencia</button>}
               </div>
             </Campo>
-            <Campo etiqueta="Secciones que necesita" opcional><div className="flex flex-wrap gap-2">{SECCIONES.map((s) => <Chip key={s} activo={d.secciones.includes(s)} onClick={() => set({ secciones: alternar(d.secciones, s) })}>{s}</Chip>)}</div></Campo>
+            <Campo etiqueta="Secciones que necesita" opcional>
+              <div className="flex flex-wrap gap-2">{SECCIONES.map((s) => <Chip key={s} activo={d.secciones.includes(s)} onClick={() => set({ secciones: alternar(d.secciones, s) })}>{s}</Chip>)}</div>
+              {d.secciones.includes('Otro') && (
+                <input className="campo aparecer mt-3" style={{ '--y': '0px' } as React.CSSProperties} value={d.seccionesOtro} onChange={(e) => set({ seccionesOtro: e.target.value })} placeholder="Cuéntanos cómo sería esa sección" autoFocus />
+              )}
+            </Campo>
             <Campo etiqueta="Contenido disponible" opcional><textarea className="campo" rows={3} value={d.contenido} onChange={(e) => set({ contenido: e.target.value })} placeholder="¿Tienen textos y fotos propias, o hay que crearlos?" /></Campo>
           </div>
         )}
@@ -240,7 +245,7 @@ export default function Wizard({ token, inicial, yaEnviado }: { token: string; i
               <Dato k="Web actual" v={d.tieneWeb === 'no' ? 'No tiene' : d.webUrl} />
               <Dato k="Redes" v={d.redes.map((r) => `${REDES[r.red].nombre}: ${r.usuario || '—'}`).join(' · ')} />
               <Dato k="Colores" v={d.colores.join(', ')} /><Dato k="Tipo de sitio" v={d.tipoSitio} />
-              <Dato k="Secciones" v={d.secciones.join(', ')} /><Dato k="Presupuesto" v={d.presupuesto} /><Dato k="Fecha límite" v={d.fechaLimite} />
+              <Dato k="Secciones" v={formatoSecciones(d)} /><Dato k="Presupuesto" v={d.presupuesto} /><Dato k="Fecha límite" v={d.fechaLimite} />
             </dl>
             {d.logoUrl && <img src={d.logoUrl} alt="Logo" className="max-h-20 self-start object-contain" />}
             <label className="flex items-center gap-3 text-[15px]"><input type="checkbox" checked={d.revisado} onChange={(e) => set({ revisado: e.target.checked })} className="h-5 w-5 accent-acento" /> Revisé el resumen y está correcto</label>
