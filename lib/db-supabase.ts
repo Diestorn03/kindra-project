@@ -4,7 +4,7 @@ import { nuevoToken } from './db';
 import { DATOS_VACIOS, type Brief, type Proyecto } from './tipos';
 
 let cliente: SupabaseClient | null = null;
-export function sb() {
+function sb() {
   if (!cliente) cliente = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_KEY!, { auth: { persistSession: false } });
   return cliente;
 }
