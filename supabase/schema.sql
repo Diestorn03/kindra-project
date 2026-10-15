@@ -25,3 +25,11 @@ on conflict (id) do nothing;
 -- El sistema usa la clave de servicio desde el servidor, así que RLS queda activo y sin políticas públicas.
 alter table briefings enable row level security;
 alter table proyectos enable row level security;
+
+-- Latido: el cron de Vercel (vercel.json, 6 veces al día) escribe aquí para que Supabase gratis no pause
+-- el proyecto. Supabase pausa por POCA actividad semanal, no solo por ninguna: una lectura cada 3 días no alcanzó.
+create table if not exists latido (
+  id int primary key,
+  en timestamptz not null default now()
+);
+alter table latido enable row level security;
